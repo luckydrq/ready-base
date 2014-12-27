@@ -1,5 +1,5 @@
 /**!
- * nunjucks engine - lib/engines/nunjucks/index.js
+ * ready-base - index.js
  *
  * @author luckydrq<drqzju@gmail.com>
  */
