@@ -1,5 +1,7 @@
 # ready-base
 
+<img src="https://travis-ci.org/luckydrq/ready-base.svg" data-bindattr-829="829" title="Build Status Images">
+
 A simple mechanism that supports `jquery-like` ready staff. It is
 useful when the process of instance initialization is async. Note that
 if `.ready` is called after initialization, the callback is called
