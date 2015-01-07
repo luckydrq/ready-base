@@ -19,5 +19,9 @@
     "bluebird": "~2.4.2",
     "mocha": "~2.1.0",
     "native-or-bluebird": "~1.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:luckydrq/ready-base.git"
   }
 }
