@@ -34,18 +34,19 @@ describe('ready-base test', function() {
     assert.ok(i === 0);
   });
 
-  it('should trigger ready callback when a ready event emitted', function() {
+  it('should trigger ready callback when a ready event emitted', function(done) {
     var i = 0;
     var instance = new ReadyBase();
     var result = instance.ready(function() {
       ++i;
+      assert.ok(i === 1);
+      done();
     });
     assert.ok(i === 0);
     instance.emit('ready');
-    assert.ok(i === 1);
   });
 
-  it('should trigger ready callbacks when a ready event emitted', function() {
+  it('should trigger ready callbacks when a ready event emitted', function(done) {
     var i = 0;
     var instance = new ReadyBase();
     instance.ready(function() {
@@ -54,23 +55,21 @@ describe('ready-base test', function() {
     });
     instance.ready(function() {
       i += 2;
+      assert.ok(i === 3);
+      done();
     });
     assert.ok(i === 0);
     instance.emit('ready');
-    assert.ok(i === 3);
   });
 
-  it('should execute callback immediately when instance is already ready', function(done) {
+  it('should execute callback asyncly when instance is already ready', function(done) {
     var i = 0;
     var instance = new ReadyBase();
     instance.emit('ready');
     instance.ready(function() {
-      ++i;
-    });
-    assert.ok(i === 1);
-    setTimeout(function() {
+      assert.ok(i === 0);
       ++i;
       done();
-    }, 0);
+    });
   });
 });

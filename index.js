@@ -25,23 +25,31 @@ function ReadyBase() {
 
 util.inherits(ReadyBase, EventEmitter);
 
+// fix release Zalgo
+// @see http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony
 ReadyBase.prototype.ready = function(callback) {
+  var self = this;
   if (this._ready) {
     if (arguments.length === 0) {
       return Promise.resolve();
     } else {
-      return callback.call(this);
+      return process.nextTick(function() {
+        return callback.call(self);
+      });
     }
   } else {
     if (arguments.length === 0) {
-      var self = this;
       var d = Promise.defer();
       this.on('ready', function() {
         d.resolve();
       });
       return d.promise;
     } else {
-      return this.on('ready', callback);
+      return this.on('ready', function() {
+        process.nextTick(function() {
+          return callback.call(self);
+        });
+      });
     }
   }
 };
