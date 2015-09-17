@@ -1,6 +1,6 @@
 {
   "name": "ready-base",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "base class support jquery-like ready mechanism",
   "keywords": [
     "ready",
@@ -8,12 +8,15 @@
     "promise",
     "jquery"
   ],
-  "maintainers": [{
-    "author": "luckydrq",
-    "email": "drqzju@gmail.com"
-  }],
+  "maintainers": [
+    {
+      "author": "luckydrq",
+      "email": "drqzju@gmail.com"
+    }
+  ],
   "scripts": {
-    "test": "mocha test/*.test.js"
+    "test": "mocha test/*.test.js",
+    "cov": "istanbul cover _mocha -- test/*.test.js"
   },
   "dependencies": {
     "bluebird": "~2.4.2",
@@ -23,5 +26,8 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:luckydrq/ready-base.git"
+  },
+  "devDependencies": {
+    "istanbul": "~0.3.20"
   }
 }

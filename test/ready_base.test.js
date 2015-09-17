@@ -72,4 +72,31 @@ describe('ready-base test', function() {
       done();
     });
   });
+
+  it('should use error handler if given', function(done) {
+    var instance = new ReadyBase();
+    instance.on('error', function() {
+      console.error('error');
+    });
+    process.nextTick(function() {
+      instance.emit('ready');
+    });
+    instance.ready(function() {
+      assert(instance.listeners('error').length === 1);
+      var errorHandler = instance.listeners('error')[0];
+      assert(~errorHandler.toString().indexOf('console.error(\'error\')'));
+      done();
+    });
+  });
+
+  it('should provide default error handler', function(done) {
+    var instance = new ReadyBase();
+    process.nextTick(function() {
+      instance.emit('ready');
+    });
+    instance.ready(function() {
+      assert(instance.listeners('error').length === 1);
+      done();
+    });
+  });
 });

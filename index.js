@@ -11,6 +11,7 @@
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 var Promise = require('native-or-bluebird');
+var defer = process.nextTick || setImmediate;
 
 function ReadyBase() {
   EventEmitter.call(this);
@@ -20,6 +21,14 @@ function ReadyBase() {
   var self = this;
   this.on('ready', function() {
     self._ready = true;
+  });
+
+  defer(function() {
+    if (!self.listeners('error').length) {
+      self.on('error', function(err) {
+        console.error(err.stack);
+      });
+    }
   });
 }
 
