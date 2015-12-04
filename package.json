@@ -1,6 +1,6 @@
 {
   "name": "ready-base",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "base class support jquery-like ready mechanism",
   "keywords": [
     "ready",

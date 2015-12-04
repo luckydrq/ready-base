@@ -25,9 +25,7 @@ function ReadyBase() {
 
   defer(function() {
     if (!self.listeners('error').length) {
-      self.on('error', function(err) {
-        console.error(err.stack);
-      });
+      self.on('error', defaultErrorHandler);
     }
   });
 }
@@ -62,5 +60,31 @@ ReadyBase.prototype.ready = function(callback) {
     }
   }
 };
+
+function defaultErrorHandler(err) {
+  if (!(err instanceof Error)) {
+    return;
+  }
+
+  var SEPARATOR = ': ';
+
+  // print err.name and err.message
+  console.error([err.name, err.message].join(SEPARATOR));
+
+  // print additional info
+  var additionalInfo = '';
+  for (var prop in err) {
+    if (['name', 'message', 'stack'].indexOf(prop) === -1) {
+      additionalInfo += [prop, err[prop]].join(SEPARATOR) + '\n';
+    }
+  }
+  if (additionalInfo) {
+    console.error('additional info: ');
+    console.error(additionalInfo);
+  }
+
+  // print err.stack
+  console.error(err.stack);
+}
 
 module.exports = ReadyBase;
